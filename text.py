@@ -18,11 +18,14 @@ cha_1 = all[mask.unsqueeze(2).expand(-1,-1,100)].reshape(mask.size(0),-1)
 
 sum = (cha-cha_1).sum()
 assert sum == 0
+
 for i in range(0, 64):
     for j in range(0,100):
         sum += cha_1[i,j] - (wei[i,y[i],j,:] - x[i,:]).norm()
         if sum != 0:
             print(i,sum)
+
+
 
 pull = cha_1.max(-1)[0]
 mask_fan = mask[:] == False
